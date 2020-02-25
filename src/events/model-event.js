@@ -22,7 +22,7 @@ const Event = db.define("event", {
   }
 });
 
-Event.belongsTo(User);
+//Event.belongsTo(User);
 //User.hasMany(Event);
 
 module.exports = Event;
