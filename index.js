@@ -1,19 +1,22 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-
-const user = require("./src/user/router-user");
-//const room = require("./src/rooms/router-rooms");
-//const { streamRouter, stream } = require("./src/stream/router");
 
 const app = express();
-const parserMiddleware = bodyParser.json();
 const port = process.env.PORT || 4000;
 
-app.use(cors());
+const cors = require("cors");
+const corsMiddleWare = cors();
+app.use(corsMiddleWare);
+
+const bodyParser = require("body-parser");
+const parserMiddleware = bodyParser.json();
 app.use(parserMiddleware);
 
-app.use(user);
+const userRoutes = require("./src/user/router-user");
+const eventRoutes = require("./src/events/router-event");
+//const { streamRouter, stream } = require("./src/stream/router");
+
+app.use(userRoutes);
+app.use(eventRoutes);
 //app.use(room(stream));
 //app.use(streamRouter);
 
