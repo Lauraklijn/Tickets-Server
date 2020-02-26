@@ -25,7 +25,7 @@ const Ticket = db.define("ticket", {
   }
 });
 
-Ticket.belongsTo(Event); // get the Team for this player
-Event.hasMany(Ticket); // get me the Players of this team
+Ticket.belongsTo(Event); // get the event for this ticket
+Event.hasMany(Ticket); // get me the Tickets of this event
 
 module.exports = Ticket;
