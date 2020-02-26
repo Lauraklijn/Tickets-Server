@@ -13,10 +13,12 @@ app.use(parserMiddleware);
 
 const userRoutes = require("./src/user/router-user");
 const eventRoutes = require("./src/events/router-event");
+const ticketRoutes = require("./src/tickets/router-ticket");
 //const { streamRouter, stream } = require("./src/stream/router");
 
 app.use(userRoutes);
 app.use(eventRoutes);
+app.use(ticketRoutes);
 //app.use(room(stream));
 //app.use(streamRouter);
 
