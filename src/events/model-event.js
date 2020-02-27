@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../../db");
-const User = require("../user/model-user");
 
 const Event = db.define("event", {
   name: {
@@ -21,8 +20,5 @@ const Event = db.define("event", {
     // defaultValue: Sequelize.NOW
   }
 });
-
-//Event.belongsTo(User);
-//User.hasMany(Event);
 
 module.exports = Event;

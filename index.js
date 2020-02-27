@@ -1,7 +1,7 @@
 const express = require("express");
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5050;
 
 const cors = require("cors");
 const corsMiddleWare = cors();
@@ -14,13 +14,10 @@ app.use(parserMiddleware);
 const userRoutes = require("./src/user/router-user");
 const eventRoutes = require("./src/events/router-event");
 const ticketRoutes = require("./src/tickets/router-ticket");
-//const { streamRouter, stream } = require("./src/stream/router");
 
 app.use(userRoutes);
 app.use(eventRoutes);
 app.use(ticketRoutes);
-//app.use(room(stream));
-//app.use(streamRouter);
 
 app.get("/test", (req, res) => {
   res.send("Hello");
