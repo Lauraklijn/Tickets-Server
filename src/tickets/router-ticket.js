@@ -200,3 +200,10 @@ router.get("/ticketalgorithm/:id", (req, res, next) => {
 // No time anymore to make a new model etc with the comments
 
 module.exports = router;
+
+// Stappen voor Frond-end To see RISK (Algorithm)
+
+// Create Action - Load_Risk_details (+export)
+// Create Reducer - Case: Load_RISK_details // import action
+// Create components: Container: componentDidMount (props.params etc)
+// component ticketDetails: add risk(props)

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const auth = require("../auth/middleWare");
+//const auth = require("../auth/middleWare");
 const Event = require("./model-event");
 const Ticket = require("../tickets/model-ticket");
 
@@ -11,7 +11,7 @@ router.get("/event", (req, res, next) => {
     .catch(error => next(error));
 });
 
-// -------------> The page limit for the get All events request
+//-------------> The page limit for the get All events request
 // router.get("/event", (req, res, next) => {
 //   const limit = req.query.limit || 2;
 //   const offset = req.query.offset || 0;
@@ -22,7 +22,7 @@ router.get("/event", (req, res, next) => {
 //     .catch(error => next(error));
 // });
 
-// ---- CREATE Event with AUTH middleware ----
+// //---- CREATE Event with AUTH middleware ----
 // router.post("/event", auth, async function(req, res, next) {
 //   try {
 //     console.log(request.user.dataValues.id);
@@ -34,7 +34,7 @@ router.get("/event", (req, res, next) => {
 //   }
 // });
 
-//The good-one!!
+// CREATE WITHOUT auth
 router.post("/event", async (req, res, next) => {
   try {
     await Event.create({
