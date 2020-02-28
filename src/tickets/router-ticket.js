@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Ticket = require("../tickets/model-ticket");
 const Event = require("../events/model-event");
+const auth = require("../auth/middleWare");
 
 const router = new Router();
 
@@ -22,9 +23,9 @@ router.get("/tickets/:id", (req, res, next) => {
 });
 
 // // Create a new ticket
-router.post("/tickets", (req, res, next) => {
-  // console.log("WHAT IS req.body?", req.body)
-  Ticket.create(req.body)
+router.post("/tickets", auth, (req, res, next) => {
+  console.log("WHAT IS req.body?", req.body);
+  Ticket.create({ ...req.body, userId: req.user.dataValues.id })
     .then(ticket => res.json(ticket))
     .catch(next);
 });
@@ -47,6 +48,7 @@ router.post("/tickets", (req, res, next) => {
 
 // ---------------------------ALGORITHM------------------------------------------------------------------
 router.get("/ticketalgorithm/:id", (req, res, next) => {
+  // Have to connect it to front-end
   console.log("How many tickets?", req.params.id);
 
   // 1. If ticket is the only ticket of the author add 10%:
@@ -150,19 +152,24 @@ router.get("/ticketalgorithm/:id", (req, res, next) => {
                     if (totaal != 0) {
                       if (priceCurrentTicketCheck < averagePriceTickets) {
                         riskAddedByPriceAverage = 10;
+
                         console.log(
                           "WHAT IS RISKADDEDBYPRICEAVerage, Minder dan averageprice werkt deze",
                           riskAddedByPriceAverage
                         );
                         // ---> Eigenlijk checken op hoeveel verschil etc
-                      } else if (priceCurrentTicket > averagePriceTickets) {
+                      } else if (
+                        priceCurrentTicketCheck > averagePriceTickets
+                      ) {
                         riskAddedByPriceAverage = 5;
-                        // ---> CHECK else if werkt nog niet goed
+                        console.log(
+                          "WHAT IS RISKADDED BY priceAverage, meer dan averagePrice",
+                          riskAddedByPriceAverage
+                        );
                       }
-                    } else {
-                      riskAddedByPriceAverage = 0;
+
                       console.log(
-                        "What is riskAddedByPriceAverage",
+                        "What is Riskaddedbyprice Average status",
                         riskAddedByPriceAverage
                       );
                       console.log("What is RiskStatus?", riskStatus);

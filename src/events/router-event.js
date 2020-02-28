@@ -1,5 +1,5 @@
 const { Router } = require("express");
-//const auth = require("../auth/middleWare");
+const auth = require("../auth/middleWare");
 const Event = require("./model-event");
 const Ticket = require("../tickets/model-ticket");
 
@@ -13,7 +13,7 @@ router.get("/event", (req, res, next) => {
 
 //-------------> The page limit for the get All events request
 // router.get("/event", (req, res, next) => {
-//   const limit = req.query.limit || 2;
+//   const limit = req.query.limit || 9;
 //   const offset = req.query.offset || 0;
 //   Event.findAndCountAll({ limit, offset })
 //     .then(resultPerPage =>
@@ -22,29 +22,29 @@ router.get("/event", (req, res, next) => {
 //     .catch(error => next(error));
 // });
 
-// //---- CREATE Event with AUTH middleware ----
-// router.post("/event", auth, async function(req, res, next) {
-//   try {
-//     console.log(request.user.dataValues.id);
-//     const newEvent = { ...req.body, Userid: req.user.dataValues.id };
-//     const event = await Event.create(newEvent);
-//     res.status(201).send(event);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
-// CREATE WITHOUT auth
-router.post("/event", async (req, res, next) => {
+//---- CREATE Event with AUTH middleware ----
+router.post("/event", auth, async function(req, res, next) {
   try {
-    await Event.create({
-      ...req.body
-    });
-    res.status(201).send("Event created");
+    console.log("USER ID?????", req);
+    const newEvent = { ...req.body, Userid: req.user.dataValues.id };
+    const event = await Event.create(newEvent);
+    res.status(201).send(event);
   } catch (error) {
     next(error);
   }
 });
+
+// //CREATE WITHOUT auth
+// router.post("/event", async (req, res, next) => {
+//   try {
+//     await Event.create({Userid: req.users.dataValues.id
+//       ...req.body,
+//     });
+//     res.status(201).send("Event created");
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 router.get("/event/:id", (req, res, next) => {
   Event.findByPk(req.params.eventId, { include: [Ticket] })
@@ -53,6 +53,8 @@ router.get("/event/:id", (req, res, next) => {
     })
     .catch(next);
 });
+
+// Edit event
 
 router.put("/event/:id", (req, res, next) => {
   Team.findByPk(req.params.eventId)

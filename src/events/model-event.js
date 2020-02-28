@@ -15,8 +15,9 @@ const Event = db.define("event", {
     type: Sequelize.STRING
   },
   date: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATE, //DATEONLY?
     allowNull: false
+
     // defaultValue: Sequelize.NOW
   }
 });

@@ -6,7 +6,6 @@ const User = require("../user/model-user");
 const Ticket = db.define("ticket", {
   name: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   },
   author: {
