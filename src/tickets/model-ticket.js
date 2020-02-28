@@ -29,5 +29,6 @@ Ticket.belongsTo(Event); // Add EventID aan Tickets
 Event.hasMany(Ticket); // Get the Tickets of this event
 
 Ticket.belongsTo(User); // Add UserID aan Tickets
+User.hasMany(Ticket);
 
 module.exports = Ticket;
