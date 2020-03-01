@@ -5,13 +5,18 @@ const auth = require("../auth/middleWare");
 
 const router = new Router();
 
-router.get("/tickets", (req, res, next) => {
-  Ticket.findAll()
+//Create routh from events id, with ticket (including eventId)
+router.get("/events/:id/tickets", (req, res, next) => {
+  Ticket.findAll({
+    where: { eventId: req.params.id }
+  })
     .then(tickets => {
       res.send(tickets);
     })
     .catch(next);
 });
+
+// Get one ticket by ID
 
 router.get("/tickets/:id", (req, res, next) => {
   console.log("TEST ID endpoint", req.params.id);
@@ -22,29 +27,15 @@ router.get("/tickets/:id", (req, res, next) => {
     .catch(next);
 });
 
-// // Create a new ticket
+// Create a new ticket
+// Added auth, to controle if you are logged to create a ticket
+
 router.post("/tickets", auth, (req, res, next) => {
   console.log("WHAT IS req.body?", req.body);
   Ticket.create({ ...req.body, userId: req.user.dataValues.id })
     .then(ticket => res.json(ticket))
     .catch(next);
 });
-
-// To update Tickets
-
-// router.put("/tickets/:ticketId", (req, res, next) => {
-//   // console.log(req.params, 'What is params?')
-//   Ticket.findByPk(req.params.ticketId)
-//     .then(ticket => {
-//       // console.log("player?", player)
-//       if (ticket) {
-//         ticket.update(req.body).then(ticket => res.json(ticket));
-//       } else {
-//         res.status(404).end();
-//       }
-//     })
-//     .catch(next);
-// });
 
 // ---------------------------ALGORITHM------------------------------------------------------------------
 router.get("/ticketalgorithm/:id", (req, res, next) => {

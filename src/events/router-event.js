@@ -23,6 +23,7 @@ router.get("/event", (req, res, next) => {
 // });
 
 //---- CREATE Event with AUTH middleware ----
+//Added Auth, including userId
 router.post("/event", auth, async function(req, res, next) {
   try {
     console.log("USER ID?????", req);
@@ -56,17 +57,17 @@ router.get("/event/:id", (req, res, next) => {
 
 // Edit event
 
-router.put("/event/:id", (req, res, next) => {
-  Team.findByPk(req.params.eventId)
-    .then(event => {
-      console.log("EVENT FOUND???????????????????", event);
-      if (event) {
-        event.update(req.body).then(event => res.json(event));
-      } else {
-        res.status(404).end();
-      }
-    })
-    .catch(next);
-});
+// router.put("/event/:id", (req, res, next) => {
+//   event.findByPk(req.params.eventId)
+//     .then(event => {
+//       console.log("EVENT FOUND???????????????????", event);
+//       if (event) {
+//         event.update(req.body).then(event => res.json(event));
+//       } else {
+//         res.status(404).end();
+//       }
+//     })
+//     .catch(next);
+// });
 
 module.exports = router;
