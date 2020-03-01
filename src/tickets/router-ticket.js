@@ -22,6 +22,7 @@ router.get("/tickets/:id", (req, res, next) => {
   console.log("TEST ID endpoint", req.params.id);
   Ticket.findByPk(req.params.id, { include: [Event] })
     .then(ticket => {
+      //ticket.dataValues.totalRisk = 9;
       res.send(ticket);
     })
     .catch(next);

@@ -6,8 +6,10 @@ const Ticket = require("../tickets/model-ticket");
 const router = new Router();
 
 router.get("/event", (req, res, next) => {
-  Event.findAll()
-    .then(event => res.json(event))
+  const limit = req.query.limit || 9;
+  const offset = req.query.offset || 0;
+  Event.findAndCountAll({ limit, offset })
+    .then(result => res.send({ events: result.rows, total: result.count }))
     .catch(error => next(error));
 });
 
